@@ -107,6 +107,13 @@ function rewriteEventBatch(body: any, config: Config) {
       data.process = buildCanonicalProcess(data.process, config)
     }
 
+    // Strip fields that leak gateway URL or proxy usage
+    // logging.ts:143 adds baseUrl = ANTHROPIC_BASE_URL to every api event
+    delete data.baseUrl
+    delete data.base_url
+    // detectGateway() adds gateway type if base URL matches known providers
+    delete data.gateway
+
     // Additional metadata - rewrite base64-encoded blob if present
     if (data.additional_metadata) {
       data.additional_metadata = rewriteAdditionalMetadata(data.additional_metadata, config)
@@ -192,7 +199,10 @@ function rewriteAdditionalMetadata(original: string, config: Config): string {
   try {
     const decoded = JSON.parse(Buffer.from(original, 'base64').toString('utf-8'))
     // rh (repo hash) is fine to keep - users work on different repos naturally
-    // Strip any fields that might leak real machine identity
+    // Strip fields that leak gateway URL
+    delete decoded.baseUrl
+    delete decoded.base_url
+    delete decoded.gateway
     return Buffer.from(JSON.stringify(decoded)).toString('base64')
   } catch {
     return original
