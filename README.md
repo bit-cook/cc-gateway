@@ -13,6 +13,7 @@
 [![License: MIT][license-shield]][license-url]
 [![Version][version-shield]][version-url]
 [![Tests][tests-shield]][tests-url]
+[![Follow @whiletrue0x][twitter-shield]][twitter-url]
 
 </div>
 
@@ -212,3 +213,5 @@ This project builds on:
 [version-url]: https://github.com/motiful/cc-gateway/releases
 [tests-shield]: https://img.shields.io/badge/tests-13%20passed-brightgreen
 [tests-url]: https://github.com/motiful/cc-gateway/blob/main/tests/rewriter.test.ts
+[twitter-shield]: https://img.shields.io/badge/follow-%40whiletrue0x-1DA1F2?logo=x&logoColor=white
+[twitter-url]: https://x.com/whiletrue0x
